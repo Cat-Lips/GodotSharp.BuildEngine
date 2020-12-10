@@ -1,0 +1,18 @@
+diff --git a/bcl.py b/bcl.py
+index 65b661f..dcbdf1e 100755
+--- a/bcl.py
++++ b/bcl.py
+@@ -60,6 +60,13 @@ def configure_bcl(opts: BclOpts):
+         '--with-mcs-docs=no'
+     ]
+ 
++    import sys, platform
++    if sys.platform in ('cygwin', 'msys') or platform.release().endswith('WSL2'):
++        from glob import glob
++        CONFIGURE_FLAGS += [
++            f'--host={"x86" if glob(f"{opts.configure_dir}/*-x86-*") else "x86_64"}-w64-mingw32'
++        ]
++
+     configure = path_join(opts.mono_source_root, 'configure')
+     configure_args = CONFIGURE_FLAGS
+ 

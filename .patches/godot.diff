@@ -1,0 +1,13 @@
+diff --git a/modules/mono/build_scripts/solution_builder.py b/modules/mono/build_scripts/solution_builder.py
+index 6a621c3..d2a43ff 100644
+--- a/modules/mono/build_scripts/solution_builder.py
++++ b/modules/mono/build_scripts/solution_builder.py
+@@ -139,7 +139,7 @@ def build_solution(env, solution_path, build_config, extra_msbuild_args=[]):
+ 
+     # Build solution
+ 
+-    msbuild_args += [solution_path, "/restore", "/t:Build", "/p:Configuration=" + build_config]
++    msbuild_args += [os.path.relpath(solution_path), "/restore", "/t:Build", "/p:Configuration=" + build_config]
+     msbuild_args += extra_msbuild_args
+ 
+     run_command(msbuild_path, msbuild_args, env_override=msbuild_env, name="msbuild")
